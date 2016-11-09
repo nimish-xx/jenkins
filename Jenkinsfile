@@ -3,6 +3,7 @@ node('master') {
   try {
     stage 'Checkout & prepare'
     echo 'Checkout & prepare'
+    checkout(scm)
     
     stage 'Build'
     echo "Build --------------"
@@ -15,6 +16,8 @@ node('master') {
     input 'Is the app ok in DEV?'
     stage 'Deploy to INT'
     echo 'Deploy to INT'
+    sh 'cd /home/nimishs/XPXN/cookbooks/xpxn-metrix-solution/ && vagrant up'
+    sh 'cd /home/nimishs/XPXN/cookbooks/xpxn-metrix-solution/ && vagrant provision'
 
     input 'Is the app ok in INT?'
     stage 'Deploy to QA'
